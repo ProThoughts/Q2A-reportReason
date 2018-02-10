@@ -64,6 +64,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 				alert(reason);
 		 $.ajax({
           type     : "POST",
+          url      : "'.$_SERVER['SERVER_NAME'].'/qa-plugin/reportReason/ajaxResponse.php",
           data     : {
               function: "addReport",
 			  userId: userId,
