@@ -21,7 +21,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 
     private function checkReport()
 	{
-        if (qa_opt('report-reason_enabled'))
+        if (qa_opt('reportReason_enable')==true)
 		{
             return true;
         } else
@@ -62,30 +62,8 @@ class qa_html_theme_layer extends qa_html_theme_base
 				alert(userId);
 				alert(questionId);
 				alert(reason);
-				
-                    /*$.ajax({
-    url : "localhost/reportReason/qa-plugin/reportReason/ajaxResponse.php",
-    data : { function : "addReport", userId: 1, questionId: 7, reason: reason},
- 
-    type : "POST",
-    dataType : "text",
-
-    success : function(text) {
-        alert("Dziękujemy za zgłoszenie. W ciągu najbliższych paru godzin administracja sprawdzi post.")
-         //location.reload();
-		alert(text);
-         
-    },
-    error : function(xhr, status) {
-        alert("Przepraszamy, wystąpił problem!");
-		alert(xhr);
-		alert(status);
-    }
-});
-        }*/
 		 $.ajax({
           type     : "POST",
-          url      : "http://localhost/reportReason/qa-plugin/reportReason/ajaxResponse.php",
           data     : {
               function: "addReport",
 			  userId: userId,
@@ -93,6 +71,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 			  reason: reason
              },
           success: function(ret) {
+			  location.reload();
               alert("OK");
 			  alert(ret);
           },

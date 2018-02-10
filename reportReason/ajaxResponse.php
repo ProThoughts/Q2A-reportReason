@@ -14,29 +14,20 @@ if(isset($_POST))
 
 function addReport($userId, $questionId, $reason)
 {
-	try
-	{
-		if($_SERVER['REQUEST_METHOD'] == 'POST')
-		{	
-			echo $userId;
-			echo $questionId;
-			echo $reason;
-			$cn = @new mysqli('localhost', 'root', 'root', 'forum');
-			//$cn->query(
-			//'INSERT INTO qa_uservotes (postid, userid, vote, flag, reason) VALUES ('.$questionId.', '.$userId.', 0, 1, "'.$reason.'")');
-			$cn->query('INSERT INTO qa_uservotes (postid, userid, vote, flag, reason) VALUES ('.$questionId.', '.$userId.', 0, 1, "'.$reason.'") ON DUPLICATE KEY UPDATE flag=1');
-		
-		//return 'Sprawdzam: '.$userId.'&nbsp;'.$questionId.'&nbsp;'.$reason;
-		
-		//file_put_contents('test.txt', 'Udało się');
-		
-		}
-		//return true;
-	}
-	catch(PDOException $e)
-	{
-		echo $e->getMessage();
-	}
+	require_once '../../qa-config.php';
+	
+	   try
+   {
+      $pdo = new PDO('mysql:host='.QA_MYSQL_HOSTNAME.';dbname='.QA_MYSQL_DATABASE, QA_MYSQL_USERNAME, QA_MYSQL_PASSWORD);
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      
+      $stmt = $pdo->query('INSERT INTO qa_uservotes (postid, userid, vote, flag, reason) VALUES ('.$questionId.', '.$userId.', 0, 1, "'.$reason.'")');
+
+   }
+   catch(PDOException $e)
+   {
+      echo 'Połączenie nie mogło zostać utworzone: ' . $e->getMessage();
+   }
 
 }
 

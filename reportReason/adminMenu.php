@@ -3,13 +3,12 @@ class adminMenu
 {
 	private $db_ok=false;
     private $saved;
-	public function admin_form()
+	function admin_form()
 	{
 		$saved = false;
-		if (qa_clicked('reportReasonSave'))
-			{
+		if (qa_clicked('reportReason_save')) {
 			$enable = (int)qa_post_text('reportReason_enable');
-			qa_opt('reportReason_enabled', $enable);
+			qa_opt('reportReason_enable', $enable);
 			$saved = true;
 		}
 		$form = [
@@ -17,15 +16,15 @@ class adminMenu
 			'fields' => [
 				'enable' => [
 				    'type' => 'checkbox',
-					'label' => 'Włącz możliwość dodawania powodu dla zgłoszenia',
-					'value' => qa_opt('reportReason_enabled'),
+					'label' => 'Włącz dodawanie powodów dla zgłoszeń',
+					'value' => qa_opt('reportReason_enable'),
 					'tags' => 'name="reportReason_enable"'
 				],
 			],
 			'buttons' => [
 				[
 					'label' => 'Zapisz',
-					'tags' => 'name="reportReasonSave"'
+					'tags' => 'name="reportReason_save"'
 				]
 			]
 		];
