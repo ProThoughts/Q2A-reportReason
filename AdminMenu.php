@@ -34,7 +34,7 @@ class AdminMenu
 
 	public function init_queries($tableslc)
 	{
-        $sql = 'SHOW COLUMNS FROM `^uservotes` WHERE `field` = "reason"';
+            $sql = 'SHOW COLUMNS FROM `^uservotes` WHERE `field` = "reason"';
             if (!qa_db_read_all_assoc(qa_db_query_sub($sql)))
 	    {
 	        return 'ALTER TABLE `^uservotes` ADD `reason` TEXT DEFAULT NULL';
