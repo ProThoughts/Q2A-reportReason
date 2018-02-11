@@ -1,0 +1,12 @@
+{
+    "name": "Report-reason",
+    "uri": "",
+    "description": "Plugin dodaje możliwość dodania powodu dla zgłoszenia",
+    "version": "1.0",
+    "date": "2017-03-18",
+    "author": "Mariusz08",
+    "author_uri": "",
+    "license": "",
+    "update_uri": "",
+    "min_q2a": "1.5"
+}
