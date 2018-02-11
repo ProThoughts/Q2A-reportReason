@@ -1,4 +1,5 @@
 <?php
+
 class qa_html_theme_layer extends qa_html_theme_base
 {
 
@@ -22,19 +23,19 @@ class qa_html_theme_layer extends qa_html_theme_base
     private function checkReport()
     {
         if (qa_opt('reportReason_enable')==true)
-	{
+	    {
             return true;
         } else
-	{
+	    {
             return false;
         }
     }
     public function head_css()
     {
         if ($this->checkReport())
-	{
-            if($this->template === 'question')
 	    {
+            if($this->template === 'question')
+	        {
                 $this->content['css_src'][] = QA_HTML_THEME_LAYER_URLTOROOT.'/popup.css';
             }
         }
@@ -43,12 +44,12 @@ class qa_html_theme_layer extends qa_html_theme_base
     function head_script()
     {
         if ($this->template == 'question' && $this->checkReport()) 
-	{
+	    {
             $this->content['script'][] = '
             <script>
             $(function () {
-                $('#selekt').on('change', function () {
-                var text = $('#nazwa').val();
+                $("#selekt").on("change", function () {
+                var text = $("#nazwa").val();
                 text.val($("#selekt")).val() + text);
                 });
             });
@@ -64,28 +65,23 @@ class qa_html_theme_layer extends qa_html_theme_base
             }
 
                 function addReport(userId, questionId, reason){
-
-				alert(userId);
-				alert(questionId);
-				alert(reason);
-		 $.ajax({
-          type     : "POST",
-          url      : "'.$_SERVER['SERVER_NAME'].'/qa-plugin/ReportReason/AjaxResponse.php",
-          data     : {
-              function: "addReport",
-			  userId: userId,
-			  questionId: questionId,
-			  reason: reason
-             },
-          success: function(ret) {
-			  location.reload();
-              alert("OK");
-			  alert(ret);
-          },
-          complete: function() {
-          },
-          error: function(jqXHR, errorText, errorThrown) {alert(jqXHR);alert(errorText);alert(errorThrown);}
-      });
+                 $.ajax({
+                  type     : "POST",
+                  url      : "'.$_SERVER['SERVER_NAME'].'/qa-plugin/ReportReason/AjaxResponse.php",
+                  data     : {
+                      function: "addReport",
+                      userId: userId,
+                      questionId: questionId,
+                      reason: reason
+                     },
+                  success: function(ret) {
+                      location.reload();
+                      alert("Dziękujemy za zgłoszenie. W ciągu najbliższych paru godzin administracja usunie zgłoszoną treść.");
+                  },
+                  complete: function() {
+                  },
+                  error: function(jqXHR, errorText, errorThrown) {alert("Przepraszamy, wystąpił błąd. Zgłoszenie nie zostało przyjęte. Proszę o zgłoszenie tego administracji.");}
+              });
 
                 }
 
@@ -97,7 +93,7 @@ class qa_html_theme_layer extends qa_html_theme_base
     function q_view_buttons( $q_view )
     {
         if ($this->checkReport())
-	{
+	    {
             $page_url = qa_path_absolute( qa_request() );
             $page_title = $q_view['raw']['title']; 
             $this->output( '<div class="socials-wrapper">' );
@@ -139,9 +135,9 @@ class qa_html_theme_layer extends qa_html_theme_base
                 $reasonList = $this->getReason();
                 $reasonListCount = count($reasonList);
                 for($i=1;$i<=$reasonListCount-1;$i++)
-		{
+		        {
                     $this->output("<option>");
-                        $this->output($reasonList[$i]);
+                    $this->output($reasonList[$i]);
                     $this->output("</option>");
                 }
                 $args[0] = qa_get_logged_in_userid();
@@ -161,7 +157,7 @@ class qa_html_theme_layer extends qa_html_theme_base
         function c_item_buttons( $c_item )
         {
             if ($this->checkReport())
-	    {
+	        {
                 $this->output( '<div class="socials-wrapper">' );
                 $this->output('<input type="submit" id="btn" class="qa-form-light-button-flag qa-form-light-button" title="Zgłoś pytanie jako niezgodne z regulaminem/spam">');
                 $this->output( '</div>' );
@@ -180,4 +176,4 @@ class qa_html_theme_layer extends qa_html_theme_base
             parent::a_item_buttons($a_item);
         }
 }
-?>
+s
